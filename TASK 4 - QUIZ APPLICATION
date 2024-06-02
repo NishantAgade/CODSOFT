@@ -1,0 +1,70 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class OOPQuiz {
+
+    private static class Question {
+        private String questionText;
+        private List<String> options;
+        private int correctAnswerIndex;
+
+        public Question(String questionText, List<String> options, int correctAnswerIndex) {
+            this.questionText = questionText;
+            this.options = options;
+            this.correctAnswerIndex = correctAnswerIndex;
+        }
+
+        public String getQuestionText() {
+            return questionText;
+        }
+
+        public List<String> getOptions() {
+            return options;
+        }
+
+        public int getCorrectAnswerIndex() {
+            return correctAnswerIndex;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Question> questions = new ArrayList<>();
+
+        // Add OOP questions to the list
+        questions.add(new Question("What is the main concept of Object-Oriented Programming?",
+                List.of("Procedural programming", "Data abstraction", "Modular programming", "All of the above"), 2));
+        questions.add(new Question("Which of the following is NOT a pillar of OOP?",
+                List.of("Encapsulation", "Inheritance", "Polymorphism", "Recursion"), 3));
+        questions.add(new Question("What is the purpose of inheritance in OOP?",
+                List.of("To reuse existing code", "To create new data types", "To improve code readability", "All of the above"), 3));
+        questions.add(new Question("What is the difference between a class and an object?",
+                List.of("A class is a blueprint, an object is an instance of the class", "A class is an instance, an object is a blueprint", "There is no difference", "None of the above"), 0));
+
+        int score = 0;
+        int questionCount = 0;
+
+        for (Question question : questions) {
+            System.out.println("\nQuestion " + (questionCount + 1) + ":");
+            System.out.println(question.getQuestionText());
+
+            for (int i = 0; i < question.getOptions().size(); i++) {
+                System.out.println((i + 1) + ". " + question.getOptions().get(i));
+            }
+
+            System.out.print("Enter your answer (1 - " + question.getOptions().size() + "): ");
+            int userAnswer = scanner.nextInt();
+
+            if (userAnswer == question.getCorrectAnswerIndex() + 1) {
+                System.out.println("Correct!");
+                score++;
+            } else {
+                System.out.println("Incorrect. The correct answer was: " + (question.getCorrectAnswerIndex() + 1));
+            }
+            questionCount++;
+        }
+
+        System.out.println("\nYour final score: " + score + " out of " + questionCount);
+    }
+}
